@@ -9,23 +9,20 @@
 </head>
 <body>
     <div class="page">
-        <form method="POST" action="" class="formCriar">
+        <form method="POST" class="formCriar">
             <h1>Inscreva-se</h1>
             <p>Digite seus dados para criar sua conta.</p>
             <label for="name">Nome</label>
-            <input type="text" id="name" placeholder="Digite seu nome" autofocus="true" required/>
+            <input type="text" id="name" placeholder="Digite seu nome" autofocus="true" required name="primeiro_nome"/>
 
             <label for="lastname">Sobrenome</label>
-            <input type="text" id="lastname" placeholder="Digite seu sobrenome" autofocus="true" required/>
+            <input type="text" id="lastname" placeholder="Digite seu sobrenome" autofocus="true" required name="sobrenome"/>
 
             <label for="email">E-mail</label>
-            <input type="email" id="email" placeholder="Digite seu e-mail" autofocus="true" required/>
+            <input type="email" id="email" placeholder="Digite seu e-mail" autofocus="true" required name="email"/>
 
             <label for="password">Senha</label>
-            <input type="password" id="password" placeholder="Digite sua senha" required/>
-
-            <label for="passwordConfirmation">Confirme a senha</label>
-            <input type="password" id="passwordConfirmation" placeholder="Confirme sua senha" required/>
+            <input type="password" id="password" placeholder="Digite sua senha" required name="senha"/>
             
             <button type="submit" class="btn">Criar</button>
 
