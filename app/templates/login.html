@@ -3,24 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="../static/css/style.css">
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
     <div class="page">
-        <form method="POST" action="" class="formLogin">
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul class=flashes>
+                {% for message in messages %}
+                <li>{{ message }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+
+        <br>
+
+        <form method="POST" class="formLogin">
             <h1>Login</h1>
             <p>Digite suas credenciais para acessar o sistema.</p>
             <label for="email">E-mail</label>
-            <input type="email" placeholder="Digite seu e-mail" autofocus="true" required/>
+            <input id="email" type="email" placeholder="Digite seu e-mail" autofocus required name="email"/>
 
-            <label for="password">Senha</label>
-            <input type="password" placeholder="Digite sua senha" required/>
+            <label for="senha">Senha</label>
+            <input id="senha" type="password" placeholder="Digite sua senha" required name="senha"/>
             
             <a href="">Esqueci minha senha</a>
             <button type="submit" class="btn">Login</button>
 
-            <p>Ainda não tem uma conta? <a href="cadastro_usuario.html">Inscreva-se!</a></p>
+            <p>Ainda não tem uma conta? <a href="{{ url_for('usuario.cadastrar')}}">Inscreva-se!</a></p>
         </form>
     </div>
 </body>

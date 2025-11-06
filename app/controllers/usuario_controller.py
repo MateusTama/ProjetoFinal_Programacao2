@@ -13,8 +13,8 @@ def login():
     
     # Caso seja uma tentativa de login
     if (request.method == "POST"):
-        email = request.form["email"]
-        senha = request.form["senha"]
+        email = request.form.get("email")
+        senha = request.form.get("senha")
 
         usuario_dao = UsuarioDAO()
         usuario = usuario_dao.buscar_por_email(email)
@@ -22,12 +22,12 @@ def login():
         # Checa se o email corresponde a um usuário já cadastrado no sistema
         if (not usuario):
             flash("Usuário não cadastrado", "error")
-            return render_template("login.html")
+            return redirect(url_for("usuario.login"))
         
         # Checa se a senha corresponde ao hash armazenado no banco de dados
         if (not checar_hash_senha(usuario.senha, senha)):
             flash("A senha está incorreta", "error")
-            return render_template("login.html")
+            return redirect(url_for("usuario.login"))
 
         # Armazena o id do usuário logado na sessão
         session["id"] = usuario.id
@@ -42,10 +42,10 @@ def cadastrar():
         return redirect(url_for("home"))
     
     if (request.method == "POST"):
-        primeiro_nome = request.form["primeiro_nome"]
-        sobrenome = request.form["sobrenome"]
-        email = request.form["email"]
-        senha = request.form["senha"]
+        primeiro_nome = request.form.get("primeiro_nome")
+        sobrenome = request.form.get("sobrenome")
+        email = request.form.get("email")
+        senha = request.form.get("senha")
         senha_hash = gerar_hash_senha(senha)
 
         usuario_dao = UsuarioDAO()
@@ -56,3 +56,10 @@ def cadastrar():
         return redirect(url_for("usuario.login"))
 
     return render_template("cadastro_usuario.html")
+
+
+@usuario_bp.route("/logout")
+def logout():
+    session.pop("id", None)      
+    flash("Você saiu da conta.", "success")
+    return redirect(url_for("usuario.login"))
